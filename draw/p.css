@@ -1,0 +1,131 @@
+.bd{
+    background-color: black;
+}
+.picture{
+    position:relative;
+    height:700px;
+    margin: 50px;
+}
+img{
+    border: 8px solid white;
+    -webkit-transition: 1s;
+    position: absolute;
+    height:150px;
+}
+img:hover{
+    -webkit-transform: rotate(0deg);
+    -webkit-box-shadow: 5px 5px 30px #bdbfc2;
+    -webkit-transform: scale(3,3);
+    z-index:10;
+}
+.dq{
+    left:230px;
+    top:50px;
+    z-index:5;
+    -webkit-transform: rotate(10deg);
+}
+.cd{
+    left:380px;
+    top:30px;
+    -webkit-transform: rotate(250deg);
+}
+.home{
+    left:480px;
+    -webkit-transform: rotate(200deg);
+}
+.lf{
+    left:570px;
+    -webkit-transform: rotate(150deg);
+    top:50px;
+}
+.lsn{
+    left:700px;
+    top:30px;
+    -webkit-transform: rotate(60deg);
+}
+.nm{
+    left:800px;
+    top:50px;
+    -webkit-transform: rotate(350deg);
+}
+.mg{
+    left:930px;
+    -webkit-transform: rotate(70deg);
+}
+.nz{
+    left:1030px;
+    -webkit-transform: rotate(30deg);
+}
+.nzz{
+    left:300px;
+    top:250px;
+    -webkit-transform: rotate(50deg);
+}
+.qy{
+    left:400px;
+    top:250px;
+    -webkit-transform: rotate(290deg);
+}
+.sdm{
+    left:1000px;
+    top:100px;
+    z-index:5;
+    -webkit-transform: rotate(310deg);
+}
+.xjj{
+    left:600px;
+    top:250px;
+    -webkit-transform: rotate(25deg);
+}
+
+.xj{
+    left:700px;
+    top:250px;
+    -webkit-transform: rotate(40deg);
+}
+.sy{
+    left:850px;
+    top:250px;
+    -webkit-transform: rotate(270deg);
+}
+.wdlj{
+    left:980px;
+    top:250px;
+    -webkit-transform: rotate(340deg);
+}
+.zz{
+    left:280px;
+    top:500px;
+    -webkit-transform: rotate(245deg);
+}
+.mg{
+    left:400px;
+    top:500px;
+    -webkit-transform: rotate(13deg);
+}
+.sl{
+    left:520px;
+    top:400px;
+    -webkit-transform: rotate(345deg);
+}
+.yh{
+    left:600px;
+    top:500px;
+    -webkit-transform: rotate(10deg);
+    z-index:5;
+}
+.xks{
+    left:730px;
+    top:500px;
+    -webkit-transform: rotate(340deg);
+}
+.ysn{
+    left:870px;
+    top:500px;
+    -webkit-transform: rotate(20deg);
+}
+.wm{
+    left:1000px;
+    top:400px;
+    -webkit-transform: rotate(40deg);
+}
