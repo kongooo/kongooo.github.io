@@ -1,6 +1,42 @@
 .bd{
     background-color: black;
 }
+.mytitle{
+    color: black;
+    font-size: 50px;
+}
+.changeshadow{
+    padding: 3.125rem;
+    text-align: center;
+    box-sizing: border-box;
+    display: block;
+    text-rendering: optimizeLegibility;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.changesubtitle{
+    text-align: center;
+}
+.changesubtitle ul {
+    margin: 0 auto;
+    padding: 0;
+}
+.changesubtitle ul > li {
+    display: inline-block;
+    margin-right: 0.625rem;
+}
+.changesubtitle ul > li:last-child {
+   margin-right: 0;
+}
+.changesubtitle ul > li > a {
+   padding: 0.1875rem 0.625rem;
+    border-radius: 0.125rem;
+    color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.changesubtitle ul > li > a:hover{
+    color: white;
+    background-color: black;
+}
 .picture{
     position:relative;
     height:700px;
