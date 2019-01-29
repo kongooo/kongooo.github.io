@@ -45,14 +45,13 @@
     margin-left: 40px;
 }
 img{
-    border: 8px solid white;
+    border: 3px solid #fff9e1;
     -webkit-transition: 1s;
     position: absolute;
     height:150px;
 }
 img:hover{
     -webkit-transform: rotate(0deg);
-    -webkit-box-shadow: 5px 5px 30px #bdbfc2;
     -webkit-transform: scale(3,3);
     z-index:10;
 }
