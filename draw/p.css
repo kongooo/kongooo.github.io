@@ -3,7 +3,7 @@
 }
 .mytitle{
     color: black;
-    font-size: 50px;
+    font-size: 100px;
 }
 .changeshadow{
     padding: 3.125rem;
@@ -11,10 +11,11 @@
     box-sizing: border-box;
     display: block;
     text-rendering: optimizeLegibility;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: myfont;
 }
 .changesubtitle{
     text-align: center;
+    margin-top: -40px;
 }
 .changesubtitle ul {
     margin: 0 auto;
@@ -31,7 +32,8 @@
    padding: 0.1875rem 0.625rem;
     border-radius: 0.125rem;
     color: black;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: myfont;
+    font-size: 30px;
 }
 .changesubtitle ul > li > a:hover{
     color: white;
