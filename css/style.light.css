@@ -782,9 +782,10 @@ footer {
 }
 .site-menu {
   text-shadow: 0px 0px;
-  font-family: header_font, KaiTi;
+  font-family: title_font, Microsoft Yahei;
   margin-top: -10px;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .site-menu.with-background-image a:hover {
   color: #12b1bc;
