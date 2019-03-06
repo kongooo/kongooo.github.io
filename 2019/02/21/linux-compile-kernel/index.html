@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="DipperPansy">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="重新编译linux内核">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="DipperPansy">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://dipperpansy.com">
+  
+    <link rel="alternate" href="/atom.xml" title="DipperPansy" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>DipperPansy</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/newbanner.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">重新编译linux内核</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/kongooo">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/friends">
+                  
+                  Friends
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  About
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/books">
+                  
+                  Books
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/draw">
+                  
+                  PaintLab
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By DipperPansy</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2019-02-21</span>
+            <span class="time">16:36:34</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/操作系统/">操作系统</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/操作系统/">#操作系统</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>记录一下Ubuntu 16.04 LTS的内核重新编译过程。</p>
+<p>原装内核：4.13.0-41</p>
+<p>重装内核：4.4.176</p>
+<a id="more"></a>
+<h3 id="下载编译内核"><a href="#下载编译内核" class="headerlink" title="下载编译内核"></a>下载编译内核</h3><ul>
+<li><p>下载地址：<a href="https://www.kernel.org/" target="_blank" rel="noopener">The Linux Kernel Archives</a></p>
+</li>
+<li><p>解压下载好的内核到usr/src：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf linux-4.4.176.tar.xz -C /usr/src/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建立<a href="https://www.jianshu.com/p/b035d94fa959" target="_blank" rel="noopener">软连接</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s linux-4.4.176 linux</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制系统当前内核配置文件到新内核目录中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /boot/config-4.13.0-41-generic .congfig</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：此操作为方便配置</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="添加系统调用"><a href="#添加系统调用" class="headerlink" title="添加系统调用"></a>添加系统调用</h3><ul>
+<li><p>查看系统调用表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim arch/x86/entry/syscalls/syscall_64.tbl</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/05/5c7df8fa7ff9f.png" alt="系统调用表"></p>
+<p>可见原有系统调用号最大为3（排除32位的系统调用号</p>
+</li>
+<li><p>添加三个新的系统调用号：</p>
+<p><img src="https://i.loli.net/2019/03/05/5c7df8fa7eeec.png" alt="新增系统调用"></p>
+<blockquote>
+<p>注：第二个位置需写64，否则编译时会由于无法识别系统调用号而报错，注意名称前后一致</p>
+</blockquote>
+</li>
+<li><p>声明系统调用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim include/linux/syscalls.h</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/06/5c7f83ef7b7b8.png" alt="新系统调用函数声明"></p>
+<blockquote>
+<p>注：sys_hello括号内需写void，否则编译时无法识别</p>
+</blockquote>
+</li>
+<li><p>实现系统调用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim kernel/sys.c</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/06/5c7f83efae764.png" alt="实现调用函数"></p>
+<blockquote>
+<p>注：sys_hello括号内需写void，printk起到了printf的作用，for循环中i的声明需放在循环外</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="配置内核"><a href="#配置内核" class="headerlink" title="配置内核"></a>配置内核</h3><ul>
+<li><p>修改系统版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim Makefile</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：将EXTRAVERSION设置为DipperPansy (该命令需在新内核源代码目录下执行)</p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/03/05/5c7df8f961829.png" alt="修改内核版本"></p>
+</li>
+<li><p>通过图形界面进行内核的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+<p>内核配置初始界面：</p>
+<p><img src="https://i.loli.net/2019/03/05/5c7df8fa7e89b.png" alt="内核配置初始界面"></p>
+<p>在此仅对内核名称作出修改：</p>
+<p><img src="https://i.loli.net/2019/03/05/5c7df8f7832ab.png" alt="新内核名称"></p>
+<p><img src="https://i.loli.net/2019/03/05/5c7df8fa7e7cf.png" alt="更改内核名称"></p>
+<p>保存退出：</p>
+<p><img src="https://i.loli.net/2019/03/05/5c7df8f90a962.png" alt="退出界面"></p>
+</li>
+</ul>
+<h3 id="编译新内核"><a href="#编译新内核" class="headerlink" title="编译新内核"></a>编译新内核</h3><ul>
+<li><p>安装依赖项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install libssl-dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开始编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装内核模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make modules_install</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> 注：此过程中发现内存不够，故把新内核移到了home分区继续安装。</p>
+</blockquote>
+</li>
+<li><p>载入内核模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/05/5c7e2165daa94.png" alt="make install"></p>
+<blockquote>
+<p>该命令会把linux内核的镜像文件和System.map拷入到/boot下，然后会自动生成引导菜单</p>
+</blockquote>
+</li>
+<li><p>重新启动进入系统选择界面，选择Ubuntu高级选项</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f780d17754.jpg" alt="系统选择"></p>
+<p>进入内核选择界面</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f780fba5d5.jpg" alt="内核选择界面"></p>
+<p>可以看到刚刚编译好的内核，选择进入。</p>
+</li>
+<li><p>查看当前内核版本</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f7806c525b.png" alt="当前内核版本"></p>
+<p>成功！</p>
+</li>
+</ul>
+<h3 id="测试系统调用"><a href="#测试系统调用" class="headerlink" title="测试系统调用"></a>测试系统调用</h3><ul>
+<li><p>编写测试函数</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f780c8ac05.png" alt="测试函数"></p>
+<blockquote>
+<p>syscall函数第一个参数为系统调用号，之后5个参数为该系统调用函数参数，若参数超过5个自动忽略。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>编译并执行</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f780a3e7b5.png" alt="执行结果"></p>
+<p>可以发现自己编写的系统调用号为328的插入排序函数执行被强制中断，原因未知。</p>
+<p>dmesg查看printk的输出日志结果</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f780355f4e.png" alt="hello"></p>
+<p>可见编号分别为326、327的两个系统调用函数均执行成功。</p>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+        Change By <a target="_blank" href="https://github.com/kongooo">DipperPansy.</a>
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
